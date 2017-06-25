@@ -1,27 +1,19 @@
 package univel.br;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.TableModelListener;
+
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.UIManager.LookAndFeelInfo;
+
 
 import java.awt.Insets;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.util.List;
-import java.awt.event.ActionEvent;
+
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 
@@ -34,6 +26,14 @@ public class Tela extends JFrame {
 	private JScrollPane scrollPane;
 	protected JTable table;
 	protected JButton btnCarregar;
+	private JLabel lblCodigo;
+	protected JTextField txfCodigo;
+	private JLabel lbDesc;
+	protected JTextField txfDesc;
+	private JLabel lblValorD;
+	protected JTextField txfPrecoD;
+	private JLabel lblValorR;
+	protected JTextField txfPrecoR;
 
 
 	/**
@@ -50,10 +50,10 @@ public class Tela extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblDolar = new JLabel("Dolar");
@@ -74,18 +74,83 @@ public class Tela extends JFrame {
 		
 		btnCarregar = new JButton("Carregar");			
 		GridBagConstraints gbc_btnCarregar = new GridBagConstraints();
-		gbc_btnCarregar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnCarregar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCarregar.gridx = 2;
 		gbc_btnCarregar.gridy = 0;
 		contentPane.add(btnCarregar, gbc_btnCarregar);
 		
+		lblCodigo = new JLabel("Codigo");
+		GridBagConstraints gbc_lblCodigo = new GridBagConstraints();
+		gbc_lblCodigo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCodigo.gridx = 0;
+		gbc_lblCodigo.gridy = 1;
+		contentPane.add(lblCodigo, gbc_lblCodigo);
+		
+		lbDesc = new JLabel("Descricao");
+		GridBagConstraints gbc_lbDesc = new GridBagConstraints();
+		gbc_lbDesc.insets = new Insets(0, 0, 5, 5);
+		gbc_lbDesc.gridx = 1;
+		gbc_lbDesc.gridy = 1;
+		contentPane.add(lbDesc, gbc_lbDesc);
+		
+		lblValorD = new JLabel("Valor em dolar");
+		GridBagConstraints gbc_lblValorD = new GridBagConstraints();
+		gbc_lblValorD.insets = new Insets(0, 0, 5, 5);
+		gbc_lblValorD.gridx = 2;
+		gbc_lblValorD.gridy = 1;
+		contentPane.add(lblValorD, gbc_lblValorD);
+		
+		lblValorR = new JLabel("Valor em real");
+		GridBagConstraints gbc_lblValorR = new GridBagConstraints();
+		gbc_lblValorR.insets = new Insets(0, 0, 5, 0);
+		gbc_lblValorR.gridx = 3;
+		gbc_lblValorR.gridy = 1;
+		contentPane.add(lblValorR, gbc_lblValorR);
+		
+		txfCodigo = new JTextField();
+		GridBagConstraints gbc_txfCodigo = new GridBagConstraints();
+		gbc_txfCodigo.insets = new Insets(0, 0, 5, 5);
+		gbc_txfCodigo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txfCodigo.gridx = 0;
+		gbc_txfCodigo.gridy = 2;
+		contentPane.add(txfCodigo, gbc_txfCodigo);
+		txfCodigo.setColumns(10);
+		
+		txfDesc = new JTextField();
+		GridBagConstraints gbc_txfDesc = new GridBagConstraints();
+		gbc_txfDesc.anchor = GridBagConstraints.NORTH;
+		gbc_txfDesc.insets = new Insets(0, 0, 5, 5);
+		gbc_txfDesc.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txfDesc.gridx = 1;
+		gbc_txfDesc.gridy = 2;
+		contentPane.add(txfDesc, gbc_txfDesc);
+		txfDesc.setColumns(10);
+		
+		txfPrecoD = new JTextField();
+		GridBagConstraints gbc_txfPrecoD = new GridBagConstraints();
+		gbc_txfPrecoD.insets = new Insets(0, 0, 5, 5);
+		gbc_txfPrecoD.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txfPrecoD.gridx = 2;
+		gbc_txfPrecoD.gridy = 2;
+		contentPane.add(txfPrecoD, gbc_txfPrecoD);
+		txfPrecoD.setColumns(10);
+		
+		txfPrecoR = new JTextField();
+		GridBagConstraints gbc_txfPrecoR = new GridBagConstraints();
+		gbc_txfPrecoR.insets = new Insets(0, 0, 5, 0);
+		gbc_txfPrecoR.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txfPrecoR.gridx = 3;
+		gbc_txfPrecoR.gridy = 2;
+		contentPane.add(txfPrecoR, gbc_txfPrecoR);
+		txfPrecoR.setColumns(10);
+		
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridwidth = 3;
 		gbc_panel.insets = new Insets(0, 0, 0, 5);
+		gbc_panel.gridwidth = 4;
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 1;
+		gbc_panel.gridy = 3;
 		contentPane.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0};
