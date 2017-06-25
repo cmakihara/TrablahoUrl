@@ -6,10 +6,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelListener;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.UIManager.LookAndFeelInfo;
+
 import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -17,36 +23,29 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 public class Tela extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	protected JTextField txfDolar;
 	private JPanel panel;
-	private JTable table;
+	private ProdutoModel modelo;
+	private JScrollPane scrollPane;
+	protected JTable table;
+	protected JButton btnCarregar;
+
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Tela frame = new Tela();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
 	public Tela() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -64,22 +63,16 @@ public class Tela extends JFrame {
 		gbc_lblDolar.gridy = 0;
 		contentPane.add(lblDolar, gbc_lblDolar);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 0;
-		contentPane.add(textField, gbc_textField);
-		textField.setColumns(10);
+		txfDolar = new JTextField();
+		GridBagConstraints gbc_txfDolar = new GridBagConstraints();
+		gbc_txfDolar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txfDolar.insets = new Insets(0, 0, 5, 5);
+		gbc_txfDolar.gridx = 1;
+		gbc_txfDolar.gridy = 0;
+		contentPane.add(txfDolar, gbc_txfDolar);
+		txfDolar.setColumns(10);
 		
-		JButton btnCarregar = new JButton("Carregar");
-		btnCarregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				carregar();
-				
-			}
-		});
+		btnCarregar = new JButton("Carregar");			
 		GridBagConstraints gbc_btnCarregar = new GridBagConstraints();
 		gbc_btnCarregar.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCarregar.gridx = 2;
@@ -94,30 +87,23 @@ public class Tela extends JFrame {
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 1;
 		contentPane.add(panel, gbc_panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0};
+		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
+		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		panel.add(scrollPane, gbc_scrollPane);
 		
 		table = new JTable();
-		panel.add(table);
-	}
+		scrollPane.setViewportView(table);
 
-	protected void carregar() {
-		
-		
-		try {
-			String url = "http://www.master10.com.py/lista-txt/download";
-			LeitorProdutoUrl lpu = new LeitorProdutoUrl();
-			List<Produto> lista;
-			lista = lpu.lerProdutos(url);
-			lista.forEach((e)-> System.out.println(e.toString()));
-			
-			String strDolar = textField.getText().trim();
-			BigDecimal dolar= new BigDecimal (strDolar.replaceAll(",", "."));
-			
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		modelo = new ProdutoModel(lista,dolar);
 	}
 
 }
