@@ -16,6 +16,10 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 
 
+
+
+
+
 public class TelaPrincipal extends Tela{
 	
 	private Produto produtoSelecionado;
@@ -40,10 +44,39 @@ public class TelaPrincipal extends Tela{
 				
 			}
 		});
+		super.btnAdicionar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				adicionar();				
+			}
+		});
 		
 	}
 
 	
+		protected void adicionar() {
+			
+			ProdutoDao produtoDao = new ProdutoDao();
+			
+				Produto p = new Produto();
+				produtoSelecionado.setId(Long.parseLong(super.txfCodigo.getText()));
+				produtoSelecionado.setDescricao(super.txfDesc.getText().trim());
+				produtoSelecionado.setValorDolar(new BigDecimal(super.txfPrecoD.getText().trim()));
+				produtoSelecionado.setValorDolar(new BigDecimal(super.txfPrecoR.getText().trim()));
+				
+				produtoDao.inserir(p);
+			
+			
+		
+		
+		
+	}
+
+
+
+
+
 		protected void carregar() {
 			
 			String url = "http://www.master10.com.py/lista-txt/download";

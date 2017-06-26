@@ -34,6 +34,7 @@ public class Tela extends JFrame {
 	protected JTextField txfPrecoD;
 	private JLabel lblValorR;
 	protected JTextField txfPrecoR;
+	protected JButton btnAdicionar;
 
 
 	/**
@@ -56,7 +57,7 @@ public class Tela extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblDolar = new JLabel("Dolar");
+		JLabel lblDolar = new JLabel("Cotacao do dolar");
 		GridBagConstraints gbc_lblDolar = new GridBagConstraints();
 		gbc_lblDolar.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDolar.gridx = 0;
@@ -78,6 +79,13 @@ public class Tela extends JFrame {
 		gbc_btnCarregar.gridx = 2;
 		gbc_btnCarregar.gridy = 0;
 		contentPane.add(btnCarregar, gbc_btnCarregar);
+		
+		btnAdicionar = new JButton("Adicionar no carrinho");
+		GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
+		gbc_btnAdicionar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAdicionar.gridx = 3;
+		gbc_btnAdicionar.gridy = 0;
+		contentPane.add(btnAdicionar, gbc_btnAdicionar);
 		
 		lblCodigo = new JLabel("Codigo");
 		GridBagConstraints gbc_lblCodigo = new GridBagConstraints();
@@ -146,7 +154,6 @@ public class Tela extends JFrame {
 		
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.insets = new Insets(0, 0, 0, 5);
 		gbc_panel.gridwidth = 4;
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;

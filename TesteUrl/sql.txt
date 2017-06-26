@@ -1,0 +1,8 @@
+create table orcamento1(
+    id serial,
+    codigo int,
+    descricao varchar(255),
+    valorD numeric(17,2),
+    valorR numeric(17,2)
+     
+    );
